@@ -19,16 +19,16 @@ title('Raw data');
 %  sigma. 
 
 % -------------------- YOUR CODE HERE -------------------- 
-u = zeros(size(x, 1)); % You need to compute this
+U = zeros(size(x, 1)); % You need to compute this
 avg = mean(x, 2);     % 分别为每个图像块计算像素强度的均值。 
 x = x - repmat(avg, 1, size(x,2));
 sigma = x * x' / size(x, 2);
-[u,S,V] = svd(sigma);
+[U,S,V] = svd(sigma);
 
 % -------------------------------------------------------- 
 hold on
-plot([0 u(1,1)], [0 u(2,1)]);
-plot([0 u(1,2)], [0 u(2,2)]);
+plot([0 U(1,1)], [0 U(2,1)]);
+plot([0 U(1,2)], [0 U(2,2)]);
 scatter(x(1, :), x(2, :));
 hold off
 
@@ -39,7 +39,7 @@ hold off
 
 % -------------------- YOUR CODE HERE -------------------- 
 xRot = zeros(size(x)); % You need to compute this
-xRot = u' * x
+xRot = U' * x
 
 % -------------------------------------------------------- 
 
@@ -59,8 +59,8 @@ title('xRot');
 k = 1; % Use k = 1 and project the data onto the first eigenbasis
 xHat = zeros(size(x)); % You need to compute this
 
-xRot = u(:,1:k)' * x
-xHat = u(:,1:k) * u(:,1:k)' * x
+xRot = U(:,1:k)' * x
+xHat = U(:,1:k) * U(:,1:k)' * x
 
 % -------------------------------------------------------- 
 figure(3);
@@ -76,7 +76,7 @@ epsilon = 1e-5;
 % -------------------- YOUR CODE HERE -------------------- 
 xPCAWhite = zeros(size(x)); % You need to compute this
 
-xPCAWhite = diag(1./sqrt(diag(S) + epsilon)) * u' * x;
+xPCAWhite = diag(1./sqrt(diag(S) + epsilon)) * U' * x;
 
 
 
@@ -91,7 +91,7 @@ title('xPCAWhite');
 
 % -------------------- YOUR CODE HERE -------------------- 
 xZCAWhite = zeros(size(x)); % You need to compute this
-xZCAWhite = u * diag(1./sqrt(diag(S) + epsilon)) * u' * x;
+xZCAWhite = U * diag(1./sqrt(diag(S) + epsilon)) * U' * x;
 
 % -------------------------------------------------------- 
 figure(5);
